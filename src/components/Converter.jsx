@@ -18,11 +18,13 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     setDistance(inputDistance);
   };
 
-  useEffect(()=>{ //ejecuto transform cada vez que hay un cambio en los valores del array
-    if (distance !== "") {
+  useEffect(()=>{ //recupero los datos en sesión abierta
+    const conversionStorage = localStorage.getItem("conversion")
+    if (distance !== "" && conversionStorage) {
       transform(distance);
     }
   }, [distance, conversion])
+  
 
   const transform = () => {
     const n = distance.trim(); // Eliminamos espacios en blanco al inicio y al final
@@ -54,15 +56,24 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
       convertedDistance = n * 1.609;
       input = "Millas";
       res = "Km";
-    } else if (conversion === "Km a Pies") {
-      convertedDistance = n * 3281;
-      input = "Km";
+    } else if (conversion === "Metros a Pies") {
+      convertedDistance = n * 3.281;
+      input = "Metros";
       res = "Pies";
-    } else if (conversion === "Pies a Km") {
-      convertedDistance = n / 3281;
+    } else if (conversion === "Pies a Metros") {
+      convertedDistance = n / 3.281;
       input = "Pies";
-      res = "Km";
+      res = "Metros";
+    } else if (conversion === "Cm a Pulgadas") {
+      convertedDistance = n / 2.54;
+      input = "Cm";
+      res = "Pulgadas"
+    } else if (conversion === "Pulgadas a Cm") {
+      convertedDistance = n * 2.54;
+      input = "Pulgadas";
+      res = "Cm"
     }
+
     setResult(convertedDistance.toFixed(2)); // Redondeamos el resultado
     setValueInput(input);
     setValueResult(res);
@@ -73,11 +84,15 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
       setConversion("Millas a Km")
     } else if (conversion === "Millas a Km"){
       setConversion("Km a Millas")
-    } else if (conversion === "Km a Pies"){
-      setConversion("Pies a Km")
-    } else if (conversion === "Pies a Km"){
-      setConversion("Km a Pies")
-    }
+    } else if (conversion === "Metros a Pies"){
+      setConversion("Pies a Metros")
+    } else if (conversion === "Pies a Metros"){
+      setConversion("Metros a Pies")
+    } else if (conversion === "Cm a Pulgadas"){
+      setConversion("Pulgadas a Cm")
+    } else if (conversion === "Pulgadas a Cm"){
+      setConversion("Cm a Pulgadas")
+    } 
 
     // Intercambiar los valores de entrada y salida
     setValueInput(valueResult);
@@ -86,30 +101,36 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     setResult(distance);
   };
 
-  // const handleDelete = (index) => {
-  //   const updatedList = listaFavoritos.filter((item, idx) => idx !== index);
-  //   setListaFavoritos(updatedList);
-  // };
-
   const handleClickLike = (e) => {
     e.preventDefault();
     if (distance != "") {
+      //creo un objeto para almacenar la info
+      const itemToSave = {
+        distance,
+        valueInput,
+        result,
+        valueResult
+      }
+
+      //obtengo la lista de elmentos favoritos
+      const conversionesFavoritas = JSON.parse(localStorage.getItem("conversion")) || [];
+      //actualizo la lista de elmentos favoritos
+      const atualizacionFavoritas = [... conversionesFavoritas, itemToSave];
+      //guardo el objeto en el localStorage
+      localStorage.setItem("conversion", JSON.stringify(atualizacionFavoritas))
+      //actualizo la lista de favoritos
       setListaFavoritos([
         ...listaFavoritos,
         <div
           key={listaFavoritos.length}
           style={{ display: "flex", alignItems: "center" }}
         >
-          {distance} {valueInput}
-          <FaLongArrowAltRight style={{ verticalAlign: "middle" }} /> {result}
-          {valueResult}
-          {/* <MdDelete
-            style={{ cursor: "pointer" }}
-            onClick={() => handleDelete(listaFavoritos.length)}
-          /> */}
+          {distance} {valueInput} 
+           <FaLongArrowAltRight style={{ verticalAlign: "middle" }} />  {result} {valueResult}
         </div>,
       ]);
 
+      //limpio los estados
        setDistance("");
        setConversion("");
        setResult("");
@@ -128,6 +149,9 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
             unit converter
           </h1>
         </div>
+        <div>
+          <hr />
+        </div>
         <div className="converter">
           <h2>converter</h2>
           <div className="options">
@@ -136,11 +160,13 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
               onChange={(e) => setConversion(e.target.value)}
               autoFocus
             >
-              <option value="">Selecciona una conversión</option>
+              <option value="">Conversión</option>
               <option value="Km a Millas">Km a Millas</option>
               <option value="Millas a Km">Millas a Km</option>
-              <option value="Km a Pies">Km a Pies</option>
-              <option value="Pies a Km">Pies a Km</option>
+              <option value="Metros a Pies">Metros a Pies</option>
+              <option value="Pies a Metros">Pies a Metros</option>
+              <option value="Cm a Pulgadas">Cm a Pulgadas</option>
+              <option value="Pulgadas a Cm">Pulgadas a Cm</option>
             </select>
             <div className="pointerFlechas" onClick={handleClick}>
               <FaArrowRightArrowLeft />
