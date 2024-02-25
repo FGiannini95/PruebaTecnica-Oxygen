@@ -1,4 +1,4 @@
-# *Technical test - OXYGEN*
+# Technical test - OXYGEN
 This application allows you to convert distance and to save the conversion that you like most.
 ## Prerequisites
 - Have React installed
