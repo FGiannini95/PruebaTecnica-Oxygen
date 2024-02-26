@@ -22,9 +22,8 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     setValueResult
   } = useConverter();
 
-  useEffect(()=>{ //recupero los datos en sesión abierta
-    const conversionStorage = localStorage.getItem("conversion")
-    if (distance !== "" && conversionStorage) {
+  useEffect(()=>{ 
+    if (distance !== "") {
       transform(distance);
     }
   }, [distance, conversion])

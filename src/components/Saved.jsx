@@ -3,13 +3,9 @@ import { MdDelete } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
 export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
-
-  const [savedItems, setSavedItems] = useState([]);
   
   useEffect(() => {
-    // Obtener los datos guardados del localStorage al montar el componente
     const savedItemsFromLocalStorage = JSON.parse(localStorage.getItem("conversion")) || [];
-    setSavedItems(savedItemsFromLocalStorage);
     setListaFavoritos(savedItemsFromLocalStorage.map((item, idx) => (
       <div
         key={idx}
@@ -19,7 +15,7 @@ export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
         <FaLongArrowAltRight style={{ verticalAlign: "middle" }} /> {item.result} {item.valueResult}
       </div>
     )));
-  }, [setListaFavoritos]); 
+  }, []); 
 
   const handleDelete = (index) => {
     //obtengo la lista de los elementos favoritos
@@ -40,9 +36,11 @@ export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
     localStorage.setItem("conversion", JSON.stringify(atualizacionFavoritas));
   };
 
+  console.log("AAA", listaFavoritos);
+
   return (
     <>
-      {show && savedItems?.length > 0 && (
+      {show && (
         <article className="article2">
           <div className="saved">
             <h3>saved</h3>
