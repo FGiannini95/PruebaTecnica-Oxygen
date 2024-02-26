@@ -34,6 +34,9 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     setDistance(inputDistance);
   };
 
+
+  //console.log();
+  
   const handleClick = () => {
     if (conversion === "Km a Millas") { //actualizo el valor del select
       setConversion("Millas a Km")
