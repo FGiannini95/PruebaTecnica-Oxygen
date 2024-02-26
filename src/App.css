@@ -124,11 +124,11 @@ hr {
   .article1 {
     .converter {
       width: 60vw;
+      padding-bottom: 4rem;
       .options{
         select,
         input {
           width: 20vw; 
-      
         }
       }
     }
@@ -140,25 +140,14 @@ hr {
   }
 }
 
-/* @media (max-width: 545px) {
-  .article1 .converter .options {
-    display: flex;
-    align-items: center; 
 
-    select,
-    input {
-      width: calc(50% - 0.75rem); 
-      margin-right: 0.5rem; 
-    }
-
-    .pointerFlechas {
-      width: 0.75rem;
-      margin-left: auto;
-    }
-  }
-}  */
 
 @media (max-width: 545px) {
+  .article1{
+    .converter{
+      padding-bottom: 2rem;
+    }
+  }
   .article1 .converter .options {
     flex-direction: column;
     align-items: flex-start;

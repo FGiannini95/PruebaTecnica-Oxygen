@@ -10,7 +10,8 @@ export const useConverter = () => {
 
   const transform = () => {
     const n = distance.trim(); // Eliminamos espacios en blanco al inicio y al final
-    if (!/^\d+(\.\d+)?$/.test(n)) {
+    if (!/^\d*\.?\d+$/.test(n)) {
+      setDistance(""); 
       alert("¡Por favor, inserta un número válido!"); //expresión regular para validar
       return;
     }
@@ -61,6 +62,29 @@ export const useConverter = () => {
     setValueResult(res);
   };
 
+  const handleClick = () => {
+    if (conversion === "Km a Millas") { //actualizo el valor del select
+      setConversion("Millas a Km")
+    } else if (conversion === "Millas a Km"){
+      setConversion("Km a Millas")
+    } else if (conversion === "Metros a Pies"){
+      setConversion("Pies a Metros")
+    } else if (conversion === "Pies a Metros"){
+      setConversion("Metros a Pies")
+    } else if (conversion === "Cm a Pulgadas"){
+      setConversion("Pulgadas a Cm")
+    } else if (conversion === "Pulgadas a Cm"){
+      setConversion("Cm a Pulgadas")
+    } 
+
+    // Intercambiar los valores de entrada y salida
+    setValueInput(valueResult);
+    setValueResult(valueInput);
+    setDistance(result);
+    setResult(distance);
+  };
+  
+
   return {
     transform,
     distance,
@@ -72,6 +96,7 @@ export const useConverter = () => {
     valueInput,
     setValueInput,
     valueResult,
-    setValueResult
+    setValueResult,
+    handleClick
   }
 }

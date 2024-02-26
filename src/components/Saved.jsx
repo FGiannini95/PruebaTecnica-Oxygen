@@ -36,14 +36,11 @@ export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
     localStorage.setItem("conversion", JSON.stringify(atualizacionFavoritas));
   };
 
-  console.log("AAA", listaFavoritos);
-
   return (
     <>
-      {show && (
         <article className="article2">
           <div className="saved">
-            <h3>saved</h3>
+          {listaFavoritos.length > 0 && <h3>saved</h3>}
             {listaFavoritos.map((elem, index) => {
               return (
                 <div className="listado" key={index}>
@@ -57,7 +54,6 @@ export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
             })}
           </div>
         </article>
-      )}
     </>
   );
 };

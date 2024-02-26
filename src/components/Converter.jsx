@@ -4,8 +4,6 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { useConverter } from "../hooks/useConverter";
 
-//import { MdDelete } from "react-icons/md";
-
 export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
 
   const {
@@ -19,7 +17,8 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     valueInput,
     setValueInput,
     valueResult,
-    setValueResult
+    setValueResult,
+    handleClick
   } = useConverter();
 
   useEffect(()=>{ 
@@ -32,31 +31,6 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
     //controlo el input
     const inputDistance = e.target.value;
     setDistance(inputDistance);
-  };
-
-
-  //console.log();
-  
-  const handleClick = () => {
-    if (conversion === "Km a Millas") { //actualizo el valor del select
-      setConversion("Millas a Km")
-    } else if (conversion === "Millas a Km"){
-      setConversion("Km a Millas")
-    } else if (conversion === "Metros a Pies"){
-      setConversion("Pies a Metros")
-    } else if (conversion === "Pies a Metros"){
-      setConversion("Metros a Pies")
-    } else if (conversion === "Cm a Pulgadas"){
-      setConversion("Pulgadas a Cm")
-    } else if (conversion === "Pulgadas a Cm"){
-      setConversion("Cm a Pulgadas")
-    } 
-
-    // Intercambiar los valores de entrada y salida
-    setValueInput(valueResult);
-    setValueResult(valueInput);
-    setDistance(result);
-    setResult(distance);
   };
 
   const handleClickLike = (e) => {
@@ -107,9 +81,7 @@ export const Converter = ({listaFavoritos, setListaFavoritos, setShow}) => {
             unit converter
           </h1>
         </div>
-        <div>
           <hr />
-        </div>
         <div className="converter">
           <h2>converter</h2>
           <div className="options">
