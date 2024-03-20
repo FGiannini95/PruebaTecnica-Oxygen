@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-export const Saved = ({ listaFavoritos, setListaFavoritos, show }) => {
+export const Saved = ({ listaFavoritos, setListaFavoritos}) => {
   
   useEffect(() => {
     const savedItemsFromLocalStorage = JSON.parse(localStorage.getItem("conversion")) || [];

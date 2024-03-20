@@ -17,7 +17,6 @@ function App() {
       <Saved
         listaFavoritos={listaFavoritos}
         setListaFavoritos={setListaFavoritos}
-        show={show}
       />
     </>
   );
